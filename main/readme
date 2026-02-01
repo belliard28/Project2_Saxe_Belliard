@@ -1,0 +1,80 @@
+Daniel Saxe and Alex Belliard
+ECE-218 - Embedded Microcontroller Projects
+Instructor: Cherrice Traver
+1/31/25
+
+Project 2 - Automatic Headlight Control System
+
+Objectives
+Previously, we designed a safety system for a driver's ed car, so that it would not start up unless there was
+somebody sitting in the driver’s seat, passenger seat, and that both people had their seat belts buckled.
+If any of these requirements were not met, and the ignition button was pressed, the car's alarm system would
+sound and it would display an error message. But once all of these requirements were met, a green light would
+turn on, indicating that the car could be started, and once the ignition button was pressed, the engine would
+start and an “Engine started” message would be displayed. Now, we are modifying this system slightly. If the
+requirements to start the car are not met, and the alarm goes off, the user is allowed to try to meet them again.
+If the car is turned on, and the ignition button is pressed again, it will turn off the engine, and display a
+message saying “Engine Stopped.” We are also adding an automatic headlights system to the driver’s ed car.
+Once the car is running it will initiate, and the user will be able to select on (turning both headlights on),
+off (turning both headlights off), or auto (which will sense the light outside and turn the headlights on or
+off according to the outside light level).
+
+
+
+
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                Ignition Subsystem                                                ║
+╠═════════════════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════╣
+║          Specification          ║               Test Process               ║               Results               ║
+╠═════════════════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════╣
+║ Enable engine start (i.e.,      ║ 4 buttons:                               ║ All tests passed.                   ║
+║ light the green LED) while      ║ DRIVER_OCC                               ║ 1.Green light on                    ║
+║ both seats are occupied         ║ PASS_OCC                                 ║ 2.“Passenger seatbelt not fastened” ║
+║ (DRIVER_OCC, PASS_OCC)          ║ DRIVER_BELT                              ║ 3. All error messages printed.      ║
+║ and seatbelts fastened          ║ PASS_BELT                                ║                                     ║
+║ (DRIVER_BELT, PASS_BELT).       ║ 1. All buttons pressed                   ║                                     ║
+║ Otherwise print appropriate     ║ 2. All but one button (PASS_OCC) pressed ║                                     ║
+║ error messages.                 ║ 3. No buttons pressed                    ║                                     ║
+╠═════════════════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════╣
+║ Start the engine (i.e., light   ║ All buttons pressed, green               ║ Test passed.                        ║
+║ the yellow LED, turn off Green) ║ LED is on, ignition button               ║ Engine light illuminates and        ║
+║ when ignition is enabled (green ║ pressed                                  ║ stays on after ignition button      ║
+║ LED) and ignition button is     ║                                          ║ is released.                        ║
+║ pressed  (i.e., before the      ║                                          ║                                     ║
+║ button is released).            ║                                          ║                                     ║
+╠═════════════════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════╣
+║ Test ignition turning off       ║ Set all requirements and turn on the     ║ Test passed.                        ║
+║ the car.                        ║ car. Click the ignition button again     ║ When the ignition was pressed       ║
+║                                 ║ and check if the engine light turns off. ║ again, the engine light shuts off.  ║
+╠═════════════════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════╣
+║ Test that engine stays on while ║ Set all requirements and turn on the     ║ Test passed.                        ║
+║ requirements are changed after  ║ car, so that the engine light is         ║ When requirements were altered      ║
+║ the car is already on.          ║ illuminated. Then change some of the     ║ after the engine button was         ║
+║                                 ║ requirements and make sure the engine    ║ already on, the light stayed on.    ║
+║                                 ║ button stays illuminated.                ║                                     ║
+╠═════════════════════════════════╩══════════════════════════════════════════╩═════════════════════════════════════╣
+║                                                Headlight subsystem                                               ║
+╠═════════════════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════╣
+║ Only works while the engine     ║ - Turn on car and test that lights       ║ All tests passed.                   ║
+║ is running.                     ║ are fully functional.                    ║ - When car is on lights will        ║
+║                                 ║                                          ║ turn on                             ║
+║                                 ║ - Turn car off and make sure lights      ║                                     ║
+║                                 ║ are not able to turn on.                 ║ - When lights are on and car        ║
+║                                 ║                                          ║ turns off, lights turn off          ║
+╠═════════════════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════╣
+║ Test auto                       ║ - When the light changes from below      ║ All tests passed                    ║
+║                                 ║ to above “daylight,” lights wait 2       ║ - When light goes high. There       ║
+║                                 ║ second and shut off                      ║ is a delay of 1 second and          ║
+║                                 ║                                          ║ the lights turn on                  ║
+║                                 ║ - When the light changes from above      ║                                     ║
+║                                 ║ to below “daylight,” lights wait 1       ║ - When light goes low there is      ║
+║                                 ║ second and turn on                       ║ a delay of 2 seconds and the        ║
+║                                 ║                                          ║ lights turn off                     ║
+╠═════════════════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════╣
+║ Test on and off                 ║ - Turn potentiometer to high and check   ║ All tests passed.                   ║
+║                                 ║ that the headlights are on               ║ - When potentiometer is high        ║
+║                                 ║                                          ║ the lights are on                   ║
+║                                 ║ - Turn potentiometer to low and check    ║                                     ║
+║                                 ║ that the headlights are off              ║ - When potentiometer is low         ║
+║                                 ║                                          ║ the lights are off                  ║
+╚═════════════════════════════════╩══════════════════════════════════════════╩═════════════════════════════════════╝

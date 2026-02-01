@@ -1,7 +1,7 @@
 {
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Espressif\\frameworks\\esp-idf-v5.5.2",
-  "idf.pythonInstallPath": "C:\\Users\\abell\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+  "idf.pythonInstallPath": "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"
   ],
@@ -16,5 +16,6 @@
     "--query-driver=**",
     "--compile-commands-dir=c:\\Users\\abell\\project2attempt3\\build"
   ],
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "idf.port": "/dev/tty.usbmodem2101"
 }

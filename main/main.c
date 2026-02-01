@@ -187,11 +187,11 @@ adc_cali_create_scheme_curve_fitting(&cali_config, &adc2_cali_chan_handle);
 
             if (sensor_adc_mV>1000){
                 headlights = 1;
-                delay_ms (1000);
+                delay_ms (500);
             }
             else {
                 headlights = 0;
-                delay_ms (2000);
+                delay_ms (1000);
             }
         }
         gpio_set_level(HEADLIGHT_LED, headlights);
